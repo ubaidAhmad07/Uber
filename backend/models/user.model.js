@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        minlength : [5, 'Minimum length is 5 characters']
     },
     password: {
         type: String,
@@ -44,4 +45,5 @@ userSchema.statics.hashPassword = async function(password){
 
 const userModel = mongoose.model('user', userSchema)
 
-module.exports(userModel)
+module.exports = userModel
+
