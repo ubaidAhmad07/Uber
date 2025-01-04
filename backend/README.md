@@ -32,3 +32,53 @@ The request body should be a JSON object with the following fields:
   "password": "password123"
 }
 ```
+
+## Endpoint: `/users/login`
+
+### Description
+
+This endpoint allows users to log in by providing their credentials. It validates the provided username and password, and if they are correct, it generates and returns an authentication token.
+
+### Method
+
+`POST`
+
+### Request Body
+
+The request body should be a JSON object with the following fields:
+
+- `username`: A string representing the user's username.
+- `password`: A string representing the user's password.
+
+#### Example
+
+```json
+{
+  "username": "johndoe",
+  "password": "password123"
+}
+```
+
+### Responses
+
+- `200 OK`: The request was successful, and the response contains the authentication token.
+  - Example:
+    ```json
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+    ```
+- `400 Bad Request`: The request was invalid, typically due to incorrect username or password.
+  - Example:
+    ```json
+    {
+      "error": "Invalid username or password"
+    }
+    ```
+- `500 Internal Server Error`: An error occurred on the server while processing the request.
+  - Example:
+    ```json
+    {
+      "error": "An error occurred while processing the request"
+    }
+    ```

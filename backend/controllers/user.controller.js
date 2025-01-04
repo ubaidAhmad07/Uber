@@ -22,3 +22,23 @@ module.exports.registerUser = async (req, res) => {
 
     res.status(201).json({token,user})
 }
+
+module.exports.loginUser = async (req, res) => {
+    if(!validationResult(req).isEmpty()){
+        return res.status(400).json({errors: validationResult(req).array()})
+    }
+    const {email, password} = req.body
+
+    const user = await userModel.findOne({email}).select('+password')
+
+    if(!user) return res.status(401).json({error: 'Invalid email or password'})
+
+    const isPasswordValid = await user.comparePassword(password)
+
+    if(!isPasswordValid) return res.status(401).json({error: 'Invalid email or password'})
+
+    const token = user.generateAuthToken()
+
+    res.status(200).json({token,user})
+
+}
