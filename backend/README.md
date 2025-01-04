@@ -81,4 +81,85 @@ The request body should be a JSON object with the following fields:
     {
       "error": "An error occurred while processing the request"
     }
-    ```
+
+### Endpoint: `/users/profile`
+
+#### Description
+
+This endpoint retrieves the profile information of the authenticated user. It requires a valid authentication token to access the user's details.
+
+#### Method
+
+`GET`
+
+#### Request Headers
+
+- `Authorization`: A string containing the Bearer token.
+
+#### Responses
+
+- `200 OK`: The request was successful, and the response contains the user's profile information.
+- Example:
+      ```json
+        {
+          "id": "12345",
+          "fullName": {
+            "firstName": "John",
+            "lastName": "Doe"
+          },
+          "email": "john.doe@example.com"
+        }
+        ```
+  - `401 Unauthorized`: The request was not authorized, typically due to a missing or invalid token.
+      - Example:
+        ```json
+        {
+          "error": "Unauthorized"
+        }
+        ```
+  - `500 Internal Server Error`: An error occurred on the server while processing the request.
+      - Example:
+        ```json
+        {
+          "error": "An error occurred while processing the request"
+        }
+        ```
+
+### Endpoint: `/users/logout`
+
+  #### Description
+
+  This endpoint logs out the authenticated user by invalidating their authentication token.
+
+  #### Method
+
+  `POST`
+
+  #### Request Headers
+
+  - `Authorization`: A string containing the Bearer token.
+
+  #### Responses
+
+  - `200 OK`: The request was successful, and the user has been logged out.
+    - Example:
+        ```json
+        {
+          "message": "Successfully logged out"
+        }
+        ```
+  - `401 Unauthorized`: The request was not authorized, typically due to a missing or invalid token.
+    - Example:
+        ```json
+        {
+          "error": "Unauthorized"
+        }
+        ```
+  - `500 Internal Server Error`: An error occurred on the server while processing the request.
+    - Example:
+        ```json
+        {
+          "error": "An error occurred while processing the request"
+        }
+        ```
+
