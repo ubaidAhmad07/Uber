@@ -161,5 +161,87 @@ This endpoint retrieves the profile information of the authenticated user. It re
         {
           "error": "An error occurred while processing the request"
         }
-        ```
 
+# Captain Registration Endpoint Documentation
+
+### Endpoint: `/captains/register`
+
+#### Description
+
+This endpoint is used to register a new captain in the system. It accepts captain details such as full name, email, password, and vehicle information, and returns a JSON response containing an authentication token and the captain's details.
+
+#### Method
+
+`POST`
+
+#### Request Body
+
+The request body should be a JSON object with the following fields:
+
+- `fullName`: An object containing the captain's first and last name.
+  - `firstName`: A string representing the captain's first name. It must be at least 3 characters long.
+  - `lastName`: A string representing the captain's last name. It must be at least 3 characters long.
+- `email`: A string representing the captain's email. It must be a valid email address.
+- `password`: A string representing the captain's password. It must be at least 6 characters long.
+- `vehicle`: An object containing the vehicle details.
+  - `color`: A string representing the vehicle's color. It must be at least 3 characters long.
+  - `plate`: A string representing the vehicle's plate. It must be at least 3 characters long.
+  - `capacity`: A number representing the vehicle's capacity. It must be at least 1.
+  - `vehicleType`: A string representing the vehicle's type. It must be one of 'car', 'motorcycle', or 'auto'.
+
+##### Example
+
+```json
+        {
+          "fullName": {
+            "firstName": "Jane",
+            "lastName": "Doe"
+          },
+          "email": "jane.doe@example.com",
+          "password": "password123",
+          "vehicle": {
+            "color": "Red",
+            "plate": "XYZ123",
+            "capacity": 4,
+            "vehicleType": "car"
+          }
+        }
+```
+
+#### Responses
+
+  - `201 Created`: The request was successful, and the response contains the authentication token and captain's details.
+    - Example:
+        ```json
+            {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+              "captain": {
+                "id": "67890",
+                "fullName": {
+                  "firstName": "Jane",
+                  "lastName": "Doe"
+                },
+                "email": "jane.doe@example.com",
+                "vehicle": {
+                  "color": "Red",
+                  "plate": "XYZ123",
+                  "capacity": 4,
+                  "vehicleType": "car"
+                }
+              }
+            }
+        ```
+  - `400 Bad Request`: The request was invalid, typically due to missing or incorrect fields.
+    - Example:
+        ```json
+            {
+              "error": "Invalid request data"
+            }
+        ```
+  - `500 Internal Server Error`: An error occurred on the server while processing the request.
+    - Example:
+        ```json
+            {
+              "error": "An error occurred while processing the request"
+            }
+        ```
