@@ -245,3 +245,138 @@ The request body should be a JSON object with the following fields:
               "error": "An error occurred while processing the request"
             }
         ```
+        ### Endpoint: `/captains/login`
+
+        #### Description
+
+        This endpoint allows captains to log in by providing their credentials. It validates the provided email and password, and if they are correct, it generates and returns an authentication token.
+
+        #### Method
+
+        `POST`
+
+        #### Request Body
+
+        The request body should be a JSON object with the following fields:
+
+        - `email`: A string representing the captain's email.
+        - `password`: A string representing the captain's password.
+
+        ##### Example
+
+        ```json
+        {
+          "email": "jane.doe@example.com",
+          "password": "password123"
+        }
+        ```
+
+        #### Responses
+
+        - `200 OK`: The request was successful, and the response contains the authentication token.
+          - Example:
+            ```json
+            {
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            }
+            ```
+        - `400 Bad Request`: The request was invalid, typically due to incorrect email or password.
+          - Example:
+            ```json
+            {
+              "error": "Invalid email or password"
+            }
+            ```
+        - `500 Internal Server Error`: An error occurred on the server while processing the request.
+          - Example:
+            ```json
+            {
+              "error": "An error occurred while processing the request"
+            }
+            ```
+            ### Endpoint: `/captains/profile`
+
+            #### Description
+
+            This endpoint retrieves the profile information of the authenticated captain. It requires a valid authentication token to access the captain's details.
+
+            #### Method
+
+            `GET`
+
+            #### Request Headers
+
+            - `Authorization`: A string containing the Bearer token.
+
+            #### Responses
+
+            - `200 OK`: The request was successful, and the response contains the captain's profile information.
+              - Example:
+                ```json
+                {
+                  "id": "67890",
+                  "fullName": {
+                    "firstName": "Jane",
+                    "lastName": "Doe"
+                  },
+                  "email": "jane.doe@example.com",
+                  "vehicle": {
+                    "color": "Red",
+                    "plate": "XYZ123",
+                    "capacity": 4,
+                    "vehicleType": "car"
+                  }
+                }
+                ```
+            - `401 Unauthorized`: The request was not authorized, typically due to a missing or invalid token.
+              - Example:
+                ```json
+                {
+                  "error": "Unauthorized"
+                }
+                ```
+            - `500 Internal Server Error`: An error occurred on the server while processing the request.
+              - Example:
+                ```json
+                {
+                  "error": "An error occurred while processing the request"
+                }
+                ```
+
+            ### Endpoint: `/captains/logout`
+
+            #### Description
+
+            This endpoint logs out the authenticated captain by invalidating their authentication token.
+
+            #### Method
+
+            `POST`
+
+            #### Request Headers
+
+            - `Authorization`: A string containing the Bearer token.
+
+            #### Responses
+
+            - `200 OK`: The request was successful, and the captain has been logged out.
+              - Example:
+                ```json
+                {
+                  "message": "Successfully logged out"
+                }
+                ```
+            - `401 Unauthorized`: The request was not authorized, typically due to a missing or invalid token.
+              - Example:
+                ```json
+                {
+                  "error": "Unauthorized"
+                }
+                ```
+            - `500 Internal Server Error`: An error occurred on the server while processing the request.
+              - Example:
+                ```json
+                {
+                  "error": "An error occurred while processing the request"
+                }
+                ```
